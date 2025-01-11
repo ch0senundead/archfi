@@ -708,8 +708,8 @@ mountparts(){
 	clear
 	echo "mount ${rootdev} /mnt"
 	mount ${rootdev} /mnt
-	echo "mkdir /mnt/{boot,home}"
-	mkdir /mnt/{boot,home} 2>/dev/null
+	echo "mkdir /mnt/{boot/efi,home}"
+	mkdir /mnt/{boot/efi,home} 2>/dev/null
 	if [ ! "${bootdev}" = "" ]; then
 		echo "mount ${bootdev} /mnt/boot/efi"
 		mount ${bootdev} /mnt/boot/efi
@@ -1340,8 +1340,8 @@ archeditmkinitcpio(){
 	fi
 }
 archgenmkinitcpiochroot(){
-	echo "mkinitcpio -p linux"
-	mkinitcpio -p linux
+	echo "mkinitcpio -p linux-hardened"
+	mkinitcpio -p linux-hardened
 	exit
 }
 
@@ -1498,8 +1498,8 @@ archgrubinstallbootloaderchroot(){
 }
 archgrubinstallbootloaderefichroot(){
 	if [ ! "${1}" = "none" ]; then
-		echo "grub-install --target=x86_64-efi --efi-directory=/boot --recheck ${1}"
-		grub-install --target=x86_64-efi --efi-directory=/boot --recheck ${1}
+		echo "grub-install --target=x86_64-efi --efi-directory=/boot/efi --recheck ${1}"
+		grub-install --target=x86_64-efi --efi-directory=/boot/efi --recheck ${1}
 		isvbox=$(lspci | grep "VirtualBox G")
 		if [ "${isvbox}" ]; then
 			echo "VirtualBox detected, creating startup.nsh..."
@@ -1512,8 +1512,8 @@ archgrubinstallbootloaderefiusbchroot(){
 	if [ ! "${1}" = "none" ]; then
 		echo "grub-install --target=i386-pc --recheck ${1}"
 		grub-install --target=i386-pc --recheck ${1}
-		echo "grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck ${1}"
-		grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck ${1}
+		echo "grub-install --target=x86_64-efi --efi-directory=/boot/efi --removable --recheck ${1}"
+		grub-install --target=x86_64-efi --efi-directory=/boot/efi --removable --recheck ${1}
 		isvbox=$(lspci | grep "VirtualBox G")
 		if [ "${isvbox}" ]; then
 			echo "VirtualBox detected, creating startup.nsh..."
