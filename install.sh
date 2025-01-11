@@ -711,8 +711,8 @@ mountparts(){
 	echo "mkdir /mnt/{boot,home}"
 	mkdir /mnt/{boot,home} 2>/dev/null
 	if [ ! "${bootdev}" = "" ]; then
-		echo "mount ${bootdev} /mnt/boot"
-		mount ${bootdev} /mnt/boot
+		echo "mount ${bootdev} /mnt/boot/efi"
+		mount ${bootdev} /mnt/boot/efi
 	fi
 	if [ ! "${swapdev}" = "" ]; then
 		echo "swapon ${swapdev}"
